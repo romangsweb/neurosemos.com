@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="8" fill="#1a1a24"/>
+  <!-- Fan of cards -->
+  <rect x="110" y="60" width="140" height="190" rx="10" fill="#2d1b4e" transform="rotate(-12 180 155)" stroke="#d4a0b9" stroke-width="1" stroke-opacity="0.2"/>
+  <rect x="135" y="50" width="140" height="190" rx="10" fill="#1e0f35" transform="rotate(-4 205 145)" stroke="#d4a0b9" stroke-width="1" stroke-opacity="0.3"/>
+  <rect x="155" y="45" width="140" height="190" rx="10" fill="#111118" transform="rotate(4 225 140)" stroke="#d4a0b9" stroke-width="1.5" stroke-opacity="0.4"/>
+  <!-- Main card content -->
+  <text x="230" y="120" text-anchor="middle" fill="#d4a0b9" font-family="Georgia" font-size="11" font-style="italic" transform="rotate(4 230 120)">"Eres suficiente"</text>
+  <text x="230" y="140" text-anchor="middle" fill="#d4a0b9" font-family="Georgia" font-size="11" font-style="italic" transform="rotate(4 230 140)">"tal como eres"</text>
+  <!-- Stars decoration -->
+  <text x="230" y="170" text-anchor="middle" fill="#7c4dbd" font-size="16" transform="rotate(4 230 170)">✦ ✦ ✦</text>
+</svg>

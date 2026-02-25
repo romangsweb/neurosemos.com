@@ -1,0 +1,37 @@
+/* ══════════════════════════════════════════
+   FLOATING CTA
+   ══════════════════════════════════════════ */
+.floating-cta {
+    position: fixed;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    background: var(--gradient-cta);
+    color: white;
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-weight: var(--fw-bold);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(43, 142, 191, 0.4);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(43, 142, 191, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(43, 142, 191, 0);
+    }
+}

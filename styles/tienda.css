@@ -1,0 +1,61 @@
+/* ══════════════════════════════════════════
+   TIENDA SECTION
+   ══════════════════════════════════════════ */
+.tienda-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-xl);
+}
+
+.product-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.product-image {
+    background: var(--black-deep);
+    height: 200px;
+    padding: var(--space-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.product-image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.product-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+}
+
+.product-info {
+    padding: var(--space-lg);
+}
+
+.product-name {
+    margin-bottom: var(--space-sm);
+    font-size: var(--fs-lg);
+}
+
+.product-description {
+    font-size: var(--fs-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.product-price {
+    font-weight: var(--fw-bold);
+    color: var(--green-accent);
+    font-size: var(--fs-xl);
+}

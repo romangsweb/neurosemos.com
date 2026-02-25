@@ -1,0 +1,77 @@
+/* ══════════════════════════════════════════
+   TERAPIA SECTION
+   ══════════════════════════════════════════ */
+.terapia-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4xl);
+    margin-bottom: var(--space-3xl);
+}
+
+.terapia-info h3 {
+    color: var(--blue-accent);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-sm);
+}
+
+.terapia-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.terapia-step {
+    display: flex;
+    gap: var(--space-lg);
+    background: var(--gray-carbon);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--gray-light);
+}
+
+.terapia-step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--black-deep);
+    border: 2px solid var(--blue-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--fw-bold);
+    color: var(--blue-accent);
+    flex-shrink: 0;
+}
+
+.terapia-step h4 {
+    margin-bottom: var(--space-xs);
+    color: var(--white);
+}
+
+.terapia-step p {
+    margin: 0;
+    font-size: var(--fs-sm);
+}
+
+.terapia-modes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.terapia-mode-card h4 {
+    margin: var(--space-md) 0 var(--space-sm) 0;
+}
+
+.terapia-cta {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+
+    .terapia-grid,
+    .terapia-modes {
+        grid-template-columns: 1fr;
+    }
+}

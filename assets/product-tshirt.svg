@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="8" fill="#1a1a24"/>
+  <!-- T-shirt shape -->
+  <path d="M140 90 L120 100 L100 85 L130 60 L150 75 L170 65 L200 55 L230 65 L250 75 L270 60 L300 85 L280 100 L260 90 L260 240 L140 240 Z" fill="#2d1b4e" stroke="#d4a0b9" stroke-width="1.5" stroke-opacity="0.3"/>
+  <!-- Collar -->
+  <path d="M170 65 Q200 80 230 65" fill="none" stroke="#d4a0b9" stroke-width="1" stroke-opacity="0.4"/>
+  <!-- "Respira" text -->
+  <text x="200" y="155" text-anchor="middle" fill="#d4a0b9" font-family="Georgia" font-size="18" font-style="italic" opacity="0.8">Respira</text>
+  <!-- Small lotus -->
+  <path d="M200 175 Q195 168 200 162 Q205 168 200 175Z" fill="#7c4dbd" opacity="0.5"/>
+  <path d="M200 175 Q192 172 194 162 Q200 168 200 175Z" fill="#7c4dbd" opacity="0.3"/>
+  <path d="M200 175 Q208 172 206 162 Q200 168 200 175Z" fill="#7c4dbd" opacity="0.3"/>
+</svg>

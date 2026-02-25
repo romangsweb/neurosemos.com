@@ -1,0 +1,53 @@
+/* ══════════════════════════════════════════
+   TALLERES SECTION
+   ══════════════════════════════════════════ */
+.talleres-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+}
+
+.taller-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.taller-icon {
+    font-size: var(--fs-3xl);
+    margin-bottom: var(--space-md);
+}
+
+.taller-title {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-md);
+}
+
+.taller-meta {
+    display: flex;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-md);
+}
+
+.taller-description {
+    flex-grow: 1;
+    margin-bottom: var(--space-lg);
+}
+
+.taller-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--gray-light);
+}
+
+.taller-price {
+    font-size: var(--fs-xl);
+    font-weight: var(--fw-bold);
+    color: var(--green-accent);
+}
+
+.taller-price small {
+    font-size: var(--fs-xs);
+    color: var(--white-muted);
+}

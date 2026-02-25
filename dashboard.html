@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall9000 — Control Panel</title>
+    <!-- Use local styles when available, or a specialized one for this isolated dashboard -->
+    <meta name="theme-color" content="#0a0a0a">
+    <style>
+        :root {
+            --bg-base: #0a0a0f;
+            --bg-card: rgba(26, 26, 36, 0.7);
+            --border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0eef2;
+            --text-secondary: #9993a6;
+            --accent: #22c55e;
+            --radius-md: 10px;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+        }
+
+        .dot-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 24px 24px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .dash-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .dash-header {
+            margin-bottom: 2rem;
+        }
+
+        .dash-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .dash-header p {
+            color: var(--text-secondary);
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .dash-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .dash-section h2 {
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .dash-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .dash-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .dash-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--accent);
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .dash-card-info h3 {
+            font-size: 0.95rem;
+            margin: 0 0 0.2rem 0;
+        }
+
+        .dash-card-info p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .status-up {
+            background: #22c55e;
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        }
+
+        .status-down {
+            background: #ef4444;
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+        }
+
+        .status-local {
+            background: #f59e0b;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+
+        @media (max-width: 900px) {
+            .dash-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dash-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dot-grid"></div>
+    <div class="dash-container">
+        <header class="dash-header">
+            <h1>Hall9000 Control Panel</h1>
+            <p>Private infrastructure dashboard — All services at a glance</p>
+        </header>
+
+        <div class="dash-section">
+            <h2>AI & Models</h2>
+            <div class="dash-grid">
+                <a href="https://chat.buildations.com" class="dash-card" target="_blank">
+                    <div class="dash-icon">AI</div>
+                    <div class="dash-card-info">
+                        <h3>Open WebUI</h3>
+                        <p>Chat with LLMs</p>
+                    </div>
+                    <div class="status-dot status-up"></div>
+                </a>
+                <a href="https://hal.buildations.com" class="dash-card" target="_blank">
+                    <div class="dash-icon">H</div>
+                    <div class="dash-card-info">
+                        <h3>HAL 9000 PWA</h3>
+                        <p>Voice + RAG assistant</p>
+                    </div>
+                    <div class="status-dot status-up"></div>
+                </a>
+                <a href="http://100.83.235.1:8188" class="dash-card" target="_blank">
+                    <div class="dash-icon">IMG</div>
+                    <div class="dash-card-info">
+                        <h3>ComfyUI</h3>
+                        <p>Image generation</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:3001" class="dash-card" target="_blank">
+                    <div class="dash-icon">LF</div>
+                    <div class="dash-card-info">
+                        <h3>Langfuse</h3>
+                        <p>LLM observability</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:6333/dashboard" class="dash-card" target="_blank">
+                    <div class="dash-icon">Q</div>
+                    <div class="dash-card-info">
+                        <h3>Qdrant</h3>
+                        <p>Vector database</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="https://whisper.buildations.com" class="dash-card" target="_blank">
+                    <div class="dash-icon">W</div>
+                    <div class="dash-card-info">
+                        <h3>Whisper</h3>
+                        <p>Audio transcription</p>
+                    </div>
+                    <div class="status-dot status-up"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="dash-section">
+            <h2>Monitoring & Security</h2>
+            <div class="dash-grid">
+                <a href="https://grafana.buildations.com" class="dash-card" target="_blank">
+                    <div class="dash-icon">G</div>
+                    <div class="dash-card-info">
+                        <h3>Grafana</h3>
+                        <p>Metrics & dashboards</p>
+                    </div>
+                    <div class="status-dot status-up"></div>
+                </a>
+                <a href="http://100.83.235.1:5601" class="dash-card" target="_blank">
+                    <div class="dash-icon">WZ</div>
+                    <div class="dash-card-info">
+                        <h3>Wazuh</h3>
+                        <p>SIEM & threat detection</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:3004" class="dash-card" target="_blank">
+                    <div class="dash-icon">UK</div>
+                    <div class="dash-card-info">
+                        <h3>Uptime Kuma</h3>
+                        <p>Service monitoring</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:7474" class="dash-card" target="_blank">
+                    <div class="dash-icon">N4</div>
+                    <div class="dash-card-info">
+                        <h3>Neo4j</h3>
+                        <p>Threat graph database</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="dash-section">
+            <h2>Automation & Data</h2>
+            <div class="dash-grid">
+                <a href="https://n8n.buildations.com" class="dash-card" target="_blank">
+                    <div class="dash-icon">N8</div>
+                    <div class="dash-card-info">
+                        <h3>n8n</h3>
+                        <p>Workflow automation</p>
+                    </div>
+                    <div class="status-dot status-up"></div>
+                </a>
+                <a href="http://100.83.235.1:8073" class="dash-card" target="_blank">
+                    <div class="dash-icon">CD</div>
+                    <div class="dash-card-info">
+                        <h3>Changedetection</h3>
+                        <p>Web monitoring</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:9000" class="dash-card" target="_blank">
+                    <div class="dash-icon">M</div>
+                    <div class="dash-card-info">
+                        <h3>MinIO</h3>
+                        <p>Object storage</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:8080" class="dash-card" target="_blank">
+                    <div class="dash-icon">PG</div>
+                    <div class="dash-card-info">
+                        <h3>PostgreSQL</h3>
+                        <p>Databases</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="dash-section">
+            <h2>Communication</h2>
+            <div class="dash-grid">
+                <a href="http://100.83.235.1:8008" class="dash-card" target="_blank">
+                    <div class="dash-icon">MX</div>
+                    <div class="dash-card-info">
+                        <h3>Matrix/Synapse</h3>
+                        <p>Secure messaging</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:8009" class="dash-card" target="_blank">
+                    <div class="dash-icon">EL</div>
+                    <div class="dash-card-info">
+                        <h3>Element Web</h3>
+                        <p>Matrix client</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+                <a href="http://100.83.235.1:8234" class="dash-card" target="_blank">
+                    <div class="dash-icon">PDF</div>
+                    <div class="dash-card-info">
+                        <h3>Stirling PDF</h3>
+                        <p>PDF tools</p>
+                    </div>
+                    <div class="status-dot status-local"></div>
+                </a>
+            </div>
+        </div>
+
+        <footer style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);">
+            <p style="color:var(--text-secondary);font-size:0.8rem;">
+                Green = Public (Cloudflare) &nbsp;|&nbsp; Yellow = Local (Tailscale only) &nbsp;|&nbsp; Red = Down
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>
