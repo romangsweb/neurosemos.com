@@ -41,6 +41,7 @@ const isCLI = process.argv.some((value) => {
   )
 })
 const isProduction = process.env.NODE_ENV === 'production'
+const esBuild = process.env.NEXT_PHASE === 'phase-production-build'
 
 const createLog =
   (level: string, fn: typeof console.log) => (objOrMsg: object | string, msg?: string) => {
@@ -63,7 +64,7 @@ const cloudflareLogger = {
 } as any // Use PayloadLogger type when it's exported
 
 const cloudflare =
-  isCLI || !isProduction
+  isCLI || !isProduction || esBuild
     ? await getCloudflareContextFromWrangler()
     : await getCloudflareContext({ async: true })
 
@@ -113,6 +114,10 @@ function getCloudflareContextFromWrangler(): Promise<CloudflareContext> {
       getPlatformProxy({
         environment: process.env.CLOUDFLARE_ENV,
         remoteBindings: isProduction,
+        // Al compilar (`next build`) los bindings locales viven solo en memoria: así los
+        // procesos paralelos de Next no se pelean por el SQLite de .wrangler/state
+        // (en macOS daba SQLITE_BUSY / SQLITE_READONLY). El build no necesita datos.
+        ...(esBuild ? { persist: false } : {}),
       } satisfies GetPlatformProxyOptions),
   )
 }
