@@ -25,7 +25,6 @@
 			"binding": "D1",
 			"database_id": "92a15468-7033-4f78-9170-bc62e6b9d468",
 			"database_name": "neurosemos-db",
-			"remote": true,
 		},
 	],
 	"services": [
