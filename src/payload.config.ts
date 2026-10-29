@@ -1,3 +1,5 @@
+// Primero: PBKDF2 compatible con Cloudflare Workers (ver el archivo)
+import './lib/pbkdf2Workers'
 import fs from 'fs'
 import path from 'path'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'

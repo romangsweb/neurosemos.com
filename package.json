@@ -37,7 +37,8 @@
     "react": "19.2.6",
     "react-dom": "19.2.6",
     "@payloadcms/email-resend": "3.92.1",
-    "@payloadcms/translations": "3.92.1"
+    "@payloadcms/translations": "3.92.1",
+    "@noble/hashes": "1.8.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
