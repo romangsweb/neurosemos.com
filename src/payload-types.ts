@@ -249,9 +249,17 @@ export interface Post {
   id: number;
   titulo: string;
   slug?: string | null;
-  categoria: 'neurodivergencia' | 'diversidad' | 'mindfulness' | 'ansiedad' | 'general';
+  categoria: 'neurodivergencia' | 'diversidad' | 'mindfulness' | 'ansiedad' | 'vinculos' | 'general';
   publicadoEn?: string | null;
   extracto: string;
+  /**
+   * Si no eliges una, se usa la del tema del artículo. Si subes una imagen de portada, la imagen tiene prioridad.
+   */
+  animacion?: ('respirar' | 'rutas' | 'espectro' | 'oleaje' | 'desenredar' | 'abrazo' | 'recargar' | 'vinculos') | null;
+  /**
+   * Opcional. Ej. 5
+   */
+  minutosLectura?: number | null;
   portada?: (number | null) | Media;
   contenido: {
     root: {
@@ -552,6 +560,8 @@ export interface PostsSelect<T extends boolean = true> {
   categoria?: T;
   publicadoEn?: T;
   extracto?: T;
+  animacion?: T;
+  minutosLectura?: T;
   portada?: T;
   contenido?: T;
   seo?:
@@ -680,6 +690,23 @@ export interface AjustesSitio {
    * Cursos o certificaciones que respaldan la especialidad. Se muestra en el inicio.
    */
   formacion?: string | null;
+  /**
+   * Sustituye a los testimonios, que los códigos de ética desaconsejan pedir a pacientes.
+   */
+  credenciales?:
+    | {
+        valor: string;
+        descripcion: string;
+        id?: string | null;
+      }[]
+    | null;
+  preguntas?:
+    | {
+        pregunta: string;
+        respuesta: string;
+        id?: string | null;
+      }[]
+    | null;
   lineaCrisis?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -696,6 +723,20 @@ export interface AjustesSitioSelect<T extends boolean = true> {
   cedula?: T;
   ubicacion?: T;
   formacion?: T;
+  credenciales?:
+    | T
+    | {
+        valor?: T;
+        descripcion?: T;
+        id?: T;
+      };
+  preguntas?:
+    | T
+    | {
+        pregunta?: T;
+        respuesta?: T;
+        id?: T;
+      };
   lineaCrisis?: T;
   updatedAt?: T;
   createdAt?: T;

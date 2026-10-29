@@ -1,6 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { publicadoOAdmin, soloAdmin } from '../access'
 import { slugDesde } from '../hooks/slug'
+import { ANIMACION_POR_CATEGORIA, OPCIONES_ANIMACION } from '../lib/animaciones'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -31,12 +32,31 @@ export const Posts: CollectionConfig = {
         { label: 'Diversidad', value: 'diversidad' },
         { label: 'Mindfulness', value: 'mindfulness' },
         { label: 'Ansiedad y ánimo', value: 'ansiedad' },
+        { label: 'Vínculos', value: 'vinculos' },
         { label: 'General', value: 'general' },
       ],
     },
     { name: 'publicadoEn', label: 'Fecha de publicación', type: 'date', admin: { position: 'sidebar' } },
     { name: 'extracto', type: 'textarea', required: true, maxLength: 220 },
-    { name: 'portada', type: 'upload', relationTo: 'media' },
+    {
+      name: 'animacion',
+      label: 'Animación de portada',
+      type: 'select',
+      options: OPCIONES_ANIMACION,
+      admin: {
+        description: 'Si no eliges una, se usa la del tema del artículo. Si subes una imagen de portada, la imagen tiene prioridad.',
+      },
+      hooks: {
+        beforeChange: [({ value, siblingData }) => value || ANIMACION_POR_CATEGORIA[siblingData?.categoria] || 'desenredar'],
+      },
+    },
+    {
+      name: 'minutosLectura',
+      label: 'Minutos de lectura',
+      type: 'number',
+      admin: { position: 'sidebar', description: 'Opcional. Ej. 5' },
+    },
+    { name: 'portada', label: 'Imagen de portada (opcional)', type: 'upload', relationTo: 'media' },
     { name: 'contenido', type: 'richText', required: true },
     {
       name: 'seo',

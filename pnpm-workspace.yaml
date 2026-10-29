@@ -2,3 +2,12 @@ allowBuilds:
   esbuild: true
   unrs-resolver: true
   workerd: true
+
+# Parche Neurosemos: PBKDF2 compatible con Cloudflare Workers (ver patches/README.md)
+packageExtensions:
+  payload@3.92.1:
+    dependencies:
+      '@noble/hashes': 1.8.0
+
+patchedDependencies:
+  payload@3.92.1: patches/payload@3.92.1.patch

@@ -1,0 +1,65 @@
+diff --git a/dist/auth/strategies/local/authenticate.js b/dist/auth/strategies/local/authenticate.js
+index 86ac1733797fdbd53debdcb1c12ffd20ee847d1f..5d88d31ffe45e281cdf0921d207d6af43f9964ae 100644
+--- a/dist/auth/strategies/local/authenticate.js
++++ b/dist/auth/strategies/local/authenticate.js
+@@ -1,5 +1,6 @@
+ // @ts-strict-ignore
+ import crypto from 'crypto';
++import { pbkdf2Compat } from './pbkdf2Compat.js';
+ import { getPasswordHashParameters, isCurrentPasswordHash } from './generatePasswordSaltHash.js';
+ export const authenticateLocalStrategy = async ({ doc, password })=>{
+     try {
+@@ -7,7 +8,7 @@ export const authenticateLocalStrategy = async ({ doc, password })=>{
+         if (typeof salt === 'string' && typeof hash === 'string') {
+             const { hash: storedHash, iterations, keyLength } = getPasswordHashParameters(hash);
+             const res = await new Promise((resolve, reject)=>{
+-                crypto.pbkdf2(password, salt, iterations, keyLength, 'sha256', (e, hashBuffer)=>{
++                pbkdf2Compat(password, salt, iterations, keyLength, (e, hashBuffer)=>{
+                     if (e) {
+                         reject(e);
+                     }
+diff --git a/dist/auth/strategies/local/generatePasswordSaltHash.js b/dist/auth/strategies/local/generatePasswordSaltHash.js
+index 7eb8b1c2e274e5c58736c7b29a77424ed91de0fc..58ee1297526de07fdd8ba8b0cb373b732a8feb77 100644
+--- a/dist/auth/strategies/local/generatePasswordSaltHash.js
++++ b/dist/auth/strategies/local/generatePasswordSaltHash.js
+@@ -1,4 +1,5 @@
+ import crypto from 'crypto';
++import { pbkdf2Compat } from './pbkdf2Compat.js';
+ import { ValidationError } from '../../../errors/index.js';
+ import { password } from '../../../fields/validations.js';
+ const currentPasswordHashPrefix = 'pbkdf2-sha256-v1:';
+@@ -69,7 +70,7 @@ function randomBytes() {
+     return new Promise((resolve, reject)=>crypto.randomBytes(32, (err, saltBuffer)=>err ? reject(err) : resolve(saltBuffer)));
+ }
+ function pbkdf2Promisified({ iterations, keyLength, password, salt }) {
+-    return new Promise((resolve, reject)=>crypto.pbkdf2(password, salt, iterations, keyLength, 'sha256', (err, hashRaw)=>err ? reject(err) : resolve(hashRaw)));
++    return new Promise((resolve, reject)=>pbkdf2Compat(password, salt, iterations, keyLength, (err, hashRaw)=>err ? reject(err) : resolve(hashRaw)));
+ }
+ 
+ //# sourceMappingURL=generatePasswordSaltHash.js.map
+\ No newline at end of file
+diff --git a/dist/auth/strategies/local/pbkdf2Compat.js b/dist/auth/strategies/local/pbkdf2Compat.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..996a02b678217bbbabf2df175fd66f9fc7a05516
+--- /dev/null
++++ b/dist/auth/strategies/local/pbkdf2Compat.js
+@@ -0,0 +1,19 @@
++// Parche Neurosemos: Cloudflare Workers solo permite PBKDF2 nativo hasta 100 000 iteraciones,
++// y Payload usa 600 000. Si el nativo lo rechaza, se calcula lo mismo en JS puro (@noble/hashes).
++import crypto from 'crypto';
++import { pbkdf2Async } from '@noble/hashes/pbkdf2';
++import { sha256 } from '@noble/hashes/sha2';
++export const pbkdf2Compat = (password, salt, iterations, keyLength, callback)=>{
++    const fallback = ()=>pbkdf2Async(sha256, password, salt, {
++            c: iterations,
++            dkLen: keyLength
++        }).then((out)=>callback(null, Buffer.from(out)), (err)=>callback(err));
++    try {
++        crypto.pbkdf2(password, salt, iterations, keyLength, 'sha256', (err, hash)=>{
++            if (err) return fallback();
++            callback(null, hash);
++        });
++    } catch  {
++        fallback();
++    }
++};

@@ -21,6 +21,37 @@ export const AjustesSitio: GlobalConfig = {
       admin: { description: 'Cursos o certificaciones que respaldan la especialidad. Se muestra en el inicio.' },
     },
     {
+      name: 'credenciales',
+      label: 'Respaldo profesional (franja bajo el inicio)',
+      type: 'array',
+      maxRows: 6,
+      admin: { description: 'Sustituye a los testimonios, que los códigos de ética desaconsejan pedir a pacientes.' },
+      defaultValue: [
+        { valor: '+10 años', descripcion: 'de práctica clínica' },
+        { valor: 'Docencia', descripcion: 'universitaria en psicología clínica' },
+        { valor: 'Salud comunitaria', descripcion: 'intervención en crisis y prevención' },
+      ],
+      fields: [
+        { name: 'valor', type: 'text', required: true, maxLength: 24 },
+        { name: 'descripcion', label: 'Descripción', type: 'text', required: true, maxLength: 60 },
+      ],
+    },
+    {
+      name: 'preguntas',
+      label: 'Preguntas frecuentes',
+      type: 'array',
+      maxRows: 12,
+      defaultValue: [
+        { pregunta: '¿Lo que hablo en terapia es confidencial?', respuesta: 'Sí, con las excepciones que marca la ley ante riesgo para tu vida o la de otras personas. Te las explicamos en la primera sesión.' },
+        { pregunta: '¿Necesito diagnóstico de TDAH o autismo?', respuesta: 'No. Puedes venir con o sin diagnóstico. Si quieres explorar una evaluación, lo platicamos y te orientamos.' },
+        { pregunta: '¿Presencial o en línea?', respuesta: 'Las dos. Mismo enfoque; eliges lo que mejor te funcione y puedes cambiar después.' },
+      ],
+      fields: [
+        { name: 'pregunta', type: 'text', required: true },
+        { name: 'respuesta', type: 'textarea', required: true },
+      ],
+    },
+    {
       name: 'lineaCrisis',
       label: 'Aviso de crisis (pie de página)',
       type: 'text',
