@@ -6,7 +6,7 @@ export const Users: CollectionConfig = {
   slug: 'users',
   labels: { singular: 'Administrador', plural: 'Administradores' },
   admin: { useAsTitle: 'email', group: 'Configuración' },
-  auth: { maxLoginAttempts: 5, lockTime: 15 * 60 * 1000 },
+  auth: { maxLoginAttempts: 5, lockTime: 15 * 60 * 1000, useAPIKey: true },
   access: {
     read: soloAdmin,
     create: soloAdmin,
