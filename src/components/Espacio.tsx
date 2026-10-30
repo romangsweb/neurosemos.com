@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import React, { useRef, useState } from 'react'
+import { EstadoVacio } from './EstadoVacio'
 
 type Perfil = {
   tema: 'lavanda' | 'neo' | 'bosque' | 'contraste'
@@ -21,6 +22,8 @@ const LETRAS: { valor: Perfil['letra']; nombre: string }[] = [
   { valor: 'mono', nombre: 'Mono' },
   { valor: 'serif', nombre: 'Serif' },
 ]
+
+const ERROR_GUARDAR = 'error'
 
 type Props = {
   id: number | string
@@ -51,9 +54,10 @@ export function Espacio({ id, nombre, pronombres, proximaSesion, whatsapp, perfi
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ perfil: p }),
       })
-      setGuardado(res.ok ? 'Guardado' : 'No se pudo guardar. Revisa tu conexión.')
+      setGuardado(res.ok ? 'Guardado' : ERROR_GUARDAR)
     }, 500)
   }
+  const reintentar = () => guardar(perfil)
 
   const agregarAncla = (e: React.FormEvent) => {
     e.preventDefault()
@@ -127,11 +131,16 @@ export function Espacio({ id, nombre, pronombres, proximaSesion, whatsapp, perfi
                 ))}
               </ul>
             ) : (
-              <p className="suave">Cosas que te ayudan a regularte. Agrega la primera.</p>
+              <EstadoVacio
+                compacto
+                tema="abrazo"
+                titulo="¿Qué te ayuda a volver a ti?"
+                texto="Un sonido, un lugar, una rutina. Agrega la primera cuando quieras."
+              />
             )}
             <form className="ancla-nueva" onSubmit={agregarAncla}>
               <label className="sr-only" htmlFor="ancla">Nueva ancla</label>
-              <input id="ancla" value={nuevaAncla} maxLength={80} onChange={(e) => setNuevaAncla(e.target.value)} placeholder="Mirar el acuario 5 minutos" />
+              <input id="ancla" value={nuevaAncla} maxLength={80} onChange={(e) => setNuevaAncla(e.target.value)} placeholder="Escuchar lluvia 5 minutos" />
               <button type="submit" className="boton boton-primario" style={{ padding: '6px 14px', minHeight: 40 }}>
                 Agregar
               </button>
@@ -156,7 +165,20 @@ export function Espacio({ id, nombre, pronombres, proximaSesion, whatsapp, perfi
                 </button>
               ))}
             </div>
-            <p className="estado-guardado" role="status">{guardado}</p>
+            {guardado === ERROR_GUARDAR ? (
+              <div className="estado-guardado-error">
+                <EstadoVacio
+                  compacto
+                  aviso
+                  tema="desenredar"
+                  titulo="Se nos enredó la conexión"
+                  texto="Tus cambios siguen aquí en pantalla."
+                />
+                <button type="button" className="boton" onClick={reintentar}>Intentar de nuevo</button>
+              </div>
+            ) : (
+              <p className="estado-guardado" role="status">{guardado}</p>
+            )}
           </div>
         </aside>
 
@@ -164,9 +186,16 @@ export function Espacio({ id, nombre, pronombres, proximaSesion, whatsapp, perfi
           {children}
           <div className="caja">
             <h2>Próxima sesión</h2>
-            <p style={{ fontFamily: 'var(--mono)', fontSize: '1.1rem', color: 'var(--e-acento-2)', textTransform: sesion ? 'capitalize' : 'none' }}>
-              {sesion ?? 'Por confirmar'}
-            </p>
+            {sesion ? (
+              <p style={{ fontFamily: 'var(--mono)', fontSize: '1.1rem', color: 'var(--e-acento-2)', textTransform: 'capitalize' }}>{sesion}</p>
+            ) : (
+              <EstadoVacio
+                compacto
+                tema="oleaje"
+                titulo="Tu próxima sesión aún no tiene fecha"
+                texto="Cuando la acuerden, aparecerá aquí."
+              />
+            )}
             <p className="suave" style={{ marginBottom: 14 }}>Si necesitas cambiarla, escríbele a Angela.</p>
             <a className="boton boton-primario" href={`https://wa.me/${whatsapp}`}>
               Escribir a Angela

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import type { Where } from 'payload'
+import { EstadoVacio } from '@/components/EstadoVacio'
 import { Portada } from '@/components/Portada'
 import { NOMBRE_CATEGORIA } from '@/lib/animaciones'
 import { getPayloadClient } from '@/lib/payload'
@@ -76,7 +77,22 @@ export default async function Blog({ searchParams }: Props) {
           ) : null}
         </>
       ) : (
-        <p className="texto-2">{filtro ? 'Aún no hay artículos de este tema.' : 'Pronto habrá artículos aquí.'}</p>
+        filtro ? (
+          <EstadoVacio
+            tema="desenredar"
+            etiqueta={NOMBRE_CATEGORIA[filtro]}
+            titulo="Este tema todavía está en el tintero"
+            texto={`Aún no hay artículos de ${NOMBRE_CATEGORIA[filtro]}. Mientras, mira los de otros temas.`}
+            accion={{ href: '/blog', texto: 'Ver todos los artículos' }}
+          />
+        ) : (
+          <EstadoVacio
+            tema="recargar"
+            titulo="Estamos cargando las primeras ideas"
+            texto="Angela está escribiendo sobre neurodivergencia, diversidad, ansiedad y mindfulness. Vuelve pronto."
+            accion={{ href: '/como-trabajo', texto: 'Mientras, conoce cómo trabajo' }}
+          />
+        )
       )}
     </section>
   )

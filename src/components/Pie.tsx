@@ -17,6 +17,12 @@ export function Pie({ ajustes }: { ajustes: AjustesSitio }) {
         </div>
       </div>
       {ajustes.lineaCrisis ? <p className="contenedor pie-crisis">{ajustes.lineaCrisis}</p> : null}
+      <p className="contenedor pie-credito">
+        Hecho con <span aria-label="corazón negro">🖤</span> por{' '}
+        <a href="https://soyroman.com" target="_blank" rel="noopener">
+          soyroman.com
+        </a>
+      </p>
     </footer>
   )
 }

@@ -498,7 +498,19 @@ p {
 .pie-crisis {
   font-size: 0.8rem;
   color: var(--tinta-3);
-  padding-block: 20px 32px;
+  padding-block: 20px 8px;
+}
+.pie-credito {
+  font-size: 0.72rem;
+  color: var(--tinta-3);
+  padding-block: 0 28px;
+}
+.pie-credito a {
+  color: inherit;
+  text-decoration: none;
+}
+.pie-credito a:hover {
+  text-decoration: underline;
 }
 
 /* ── Formularios (entrar, crear contraseña) ── */
@@ -925,3 +937,22 @@ p {
 .destacado > * { flex: 1 1 400px; min-width: 0; }
 .autor { display: flex; gap: 16px; align-items: center; border-top: 1px solid var(--linea); padding-top: 24px; margin-top: 32px; }
 .autor img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; object-position: center 25%; }
+
+/* ── Estados vacíos y de error (ver EstadoVacio.tsx) ── */
+.estado-vacio {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+  max-width: 560px; margin: 32px auto; padding: 24px;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 22px;
+}
+.estado-vacio-anim { width: 100%; background: var(--superficie-suave); border-radius: 16px; overflow: hidden; }
+.estado-vacio-etiqueta { margin: 6px 0 0; font-size: 0.78rem; font-weight: 700; color: var(--salvia-tinta); }
+.estado-vacio-titulo { margin: 0; font-family: var(--serif); font-size: 1.45rem; line-height: 1.25; color: var(--tinta); }
+.estado-vacio-texto { margin: 0; color: var(--tinta-2); max-width: 46ch; }
+.estado-vacio-accion { margin-top: 4px; font-weight: 700; color: var(--ciruela); text-decoration: none; }
+.estado-vacio-accion:hover { text-decoration: underline; }
+.estado-vacio-acciones { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 6px; }
+.estado-vacio--compacto { margin: 8px 0; padding: 14px; gap: 6px; max-width: none; background: transparent; border: 1px dashed currentColor; border-color: color-mix(in srgb, currentColor 35%, transparent); border-radius: 16px; }
+.estado-vacio--compacto .estado-vacio-anim { background: transparent; }
+.estado-vacio--compacto .estado-vacio-titulo { font-family: inherit; font-weight: 700; font-size: 1.05rem; }
+.estado-vacio--compacto .estado-vacio-texto { font-size: 0.9rem; }
+.estado-guardado-error { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { Espacio } from '@/components/Espacio'
+import { EstadoVacio } from '@/components/EstadoVacio'
 import { getAjustes, getPaciente, getPayloadClient } from '@/lib/payload'
 
 export const metadata: Metadata = { title: 'Tu espacio', robots: { index: false } }
@@ -67,7 +68,12 @@ export default async function MiEspacio() {
             ))}
           </div>
         ) : (
-          <p className="suave">Cuando Angela te asigne meditaciones o guías, aparecerán aquí.</p>
+          <EstadoVacio
+            compacto
+            tema="respirar"
+            titulo="Aquí aparecerá lo que Angela te comparta"
+            texto="Meditaciones, guías y ejercicios. Mientras, puedes respirar con el círculo un minuto."
+          />
         )}
       </section>
     </Espacio>
